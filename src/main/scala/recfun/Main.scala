@@ -14,11 +14,9 @@ object Main {
     * Exercise 1
     */
   def pascal(c: Int, r: Int): Int = {
-    if (c == 0 || r == c) {
-      1
-    } else {
-      pascal(c, r - 1) + pascal(c - 1, r - 1)
-    }
+    if (c < 0 || r < 0 || c > r) 0
+    else if (c == 0 || r == c) 1
+    else pascal(c, r - 1) + pascal(c - 1, r - 1)
   }
 
   /**
@@ -26,17 +24,11 @@ object Main {
     */
   def balance(chars: List[Char]): Boolean = {
     def balanceAux(chars: List[Char], acc: Int): Boolean = {
-      (chars, acc) match {
-        case (_, count) if count < 0 =>
-          false
-        case (string, _) if string.isEmpty =>
-          acc == 0
-        case _ =>
-          balanceAux(chars.tail, chars.head match {
-            case '(' => acc + 1
-            case ')' => acc - 1
-            case _ => acc
-          })
+      chars match {
+        case Nil => 0 == acc
+        case '(' :: cs => balanceAux(cs, acc + 1)
+        case ')' :: cs => if (acc < 1) false else balanceAux(cs, acc - 1)
+        case _ :: cs => balanceAux(cs, acc)
       }
     }
 
