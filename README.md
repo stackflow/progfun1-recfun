@@ -2,6 +2,6 @@
 
 ## Sbt project for Functions & Evaluation
 To run tests
-```sh
+```scala
 sbt test
 ```
